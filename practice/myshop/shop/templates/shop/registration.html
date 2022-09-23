@@ -1,0 +1,39 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <div class="jumbotron">
+      {% if registered %}
+        <h1>Дякуємо за регістрацію!</h1>
+      {% else %}
+        <h1>Регістрація</h1>
+        <h3>Заповніть форму:</h3>
+
+        <form method="post" action="{% url 'shop:register' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="username1">Ім'я користувача</label>
+                  <input type="text" class="form-control" id="username1" name="username" placeholder="Введіть Ім'я">
+
+                </div>
+                <div class="form-group">
+                  <label for="Password1">Пароль</label>
+                  <input type="password" class="form-control" id="Password1" name="password" placeholder="Введіть пароль">
+                </div>
+                <div class="form-group">
+                  <label for="email1">Email</label>
+                  <input type="email" class="form-control" id="email1" name="email" placeholder="Email">
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Регістрація</button>
+        </form>
+
+      {% endif %}
+
+    </div>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "shop/base.html" %}
+{% block content %}
+
+
+
+    {% if user.is_authenticated %}
+        <h2>Вітаємо, {{ user.username }}!</h2>
+    {% else %}
+        <h2>Вітаємо! Дякую, що обрали Метро-онлайн!</h2>
+    {% endif %}
+
+
+
+
+
+{% endblock %}

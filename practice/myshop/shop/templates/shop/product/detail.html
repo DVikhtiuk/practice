@@ -1,0 +1,36 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.title }}{% else %}Products{% endif %}
+{% endblock %}
+{% block content %}
+    <div class="product-detail">
+        <img style=" width:18rem; height:18rem;" src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+        <h1>{{ product.name }}</h1>
+        <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+        <p class="price">{{ product.price }} grn.</p>
+        {{ product.description|linebreaks }}
+    </div>
+
+
+<form action="{% url 'cart:cart_add' product.id %}" method="post">
+     <div class="form-group">
+    <label for="id_quantity">Кількість:</label>
+    <select class="form-control" id="id_quantity", name="quantity">
+      <option value="1">1</option>
+      <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+
+    </select>
+  </div>
+    {% csrf_token %}
+    <input type="submit" value="Додати до кошика" class="btn btn-outline-dark">
+</form>
+{% endblock %}

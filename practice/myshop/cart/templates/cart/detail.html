@@ -1,0 +1,54 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+    Cart
+{% endblock %}
+{% block content %}
+    <h1>Ваш кошик</h1>
+    <table class="cart">
+        <thead>
+        <tr>
+            <th style="padding:10px;">Картинка</th>
+            <th style="padding:10px;">Продукт</th>
+            <th style="padding:10px;">Кількість</th>
+            <th style="padding:10px;">Видалити</th>
+            <th style="padding:10px;">Ціна за одиницю</th>
+            <th style="padding:10px;">Ціна</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="{{ product.get_absolute_url }}">
+                            <img style="width:18rem; height:18rem;" src="
+                                {% if product.image %}
+                                    {{ product.image.url }}
+                                {% else %}
+                                    {% static "img/no_image.png" %}
+                                {% endif %}">
+                        </a>
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td><a href="{% url "cart:cart_remove" product.id%}">Видалити</a></td>
+                    <td class="num">{{ item.price }} grn.</td>
+                    <td class="num">{{ item.total_price }} grn.</td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+        <tr class="total">
+            <td>Всього:</td>
+            <td colspan="4"></td>
+            <td class="num">{{ cart.get_total_price }} grn.</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="text-left" style="padding:20px;">
+        <a style="margin:10px;" href="{% url "shop:product_list" %}" class="btn btn-outline-dark">Повернутись до магазину</a>
+       <a href="{% url "orders:order_create" %}" class="btn btn-outline-dark">
+    Замовити
+</a>
+    </p>
+{% endblock %}
